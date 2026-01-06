@@ -28,6 +28,7 @@ namespace ExamJan25
     public partial class MainWindow : Window
     {
         List<Event> events = new List<Event>(); //list to hold event objects
+        List<Event> filteredEvents = new List<Event>();
 
         public MainWindow()
         {
@@ -36,6 +37,7 @@ namespace ExamJan25
             
         }
 
+        //loaded event - creates events and tickets and displays events in the events listbox
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -66,6 +68,7 @@ namespace ExamJan25
             //lbxTickets.ItemsSource = tickets; //binding tickets list to listbox
         }
 
+        //display tickets for selected event
         private void lbxEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //determine what event is selected
@@ -82,6 +85,7 @@ namespace ExamJan25
             
         }
 
+        //book tickets button click event
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //read amount required
@@ -114,7 +118,44 @@ namespace ExamJan25
                     MessageBox.Show($"Only {available} tickets available for {selectedTicket.Name}. P;ease reduce the number of tickets required.");
                 }
             }
+            
+        }
 
+        //clear search box on focus
+        private void tbxSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbxSearch.Clear();
+        }
+
+        //search events as user types in search box
+        private void tbxSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            //read text from screen
+            string searchText = tbxSearch.Text;
+
+            //if no text then display all
+            if (string.IsNullOrEmpty(searchText))
+            {
+                lbxEvents.ItemsSource = null;
+                lbxEvents.ItemsSource = events;
+            }
+            else
+            {
+                //clear filtered list
+                filteredEvents.Clear();
+
+                //search for that text in list of events
+                foreach (Event ev in events)
+                {
+                    if (ev.Name.ToLower().Contains(searchText.ToLower()))
+                    {
+                        filteredEvents.Add(ev);
+                    }
+                    //display filtered list
+                    lbxEvents.ItemsSource = null;
+                    lbxEvents.ItemsSource = filteredEvents;
+                }
+            }
             
         }
     }
