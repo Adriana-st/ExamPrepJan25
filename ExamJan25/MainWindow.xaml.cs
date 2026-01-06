@@ -18,6 +18,13 @@ namespace ExamJan25
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+    public enum EventType //enum for event class
+    {
+        Music, 
+        Comedy, 
+        Theatre
+    }
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -45,6 +52,18 @@ namespace ExamJan25
             public void VIPMethod()
             {
                 Console.WriteLine("VIPMethod called.");
+            }
+        }
+
+        public class Event
+        {
+            public string Name { get; set; }
+            public DateTime EventDate { get; set; }
+            public List<Ticket> Tickets { get; set; }
+            public EventType TypeOfEvent { get; set; }
+            public void EventMethod()
+            {
+                Console.WriteLine("EventMethod called.");
             }
         }
     }
