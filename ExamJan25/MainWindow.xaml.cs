@@ -55,7 +55,7 @@ namespace ExamJan25
             }
         }
 
-        public class Event
+        public class Event: IComparable<Event>
         {
             public string Name { get; set; }
             public DateTime EventDate { get; set; }
@@ -64,6 +64,16 @@ namespace ExamJan25
             public void EventMethod()
             {
                 Console.WriteLine("EventMethod called.");
+            }
+            // Implement IComparable
+            public int CompareTo(Event other)
+            {
+                if (other == null)
+                {
+                    return 1;
+                }
+
+                return this.EventDate.CompareTo(other.EventDate);
             }
         }
     }
