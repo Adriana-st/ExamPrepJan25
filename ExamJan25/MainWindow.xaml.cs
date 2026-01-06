@@ -24,5 +24,28 @@ namespace ExamJan25
         {
             InitializeComponent();
         }
+
+        //creating base class Ticket
+        public class Ticket
+        {
+            public string Name { get; set; }
+            public decimal Price { get; set; }
+            public int AvailableTickets { get; set; }
+            public void SampleMethod()
+            {
+                Console.WriteLine("SampleMethod called.");
+            }
+        }
+
+        //creating derived class VIPTicket
+        public class VIPTicket : Ticket
+        {
+            public string AdditionalExtras { get; set; }
+            public decimal AdditionalCost { get; set; }
+            public void VIPMethod()
+            {
+                Console.WriteLine("VIPMethod called.");
+            }
+        }
     }
 }
